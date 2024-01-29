@@ -3,11 +3,12 @@ package db;
 import bean.CarBean;
 import bean.UserBean;
 
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class DataBase {
     protected static List<UserBean> users = new ArrayList<>();
@@ -291,13 +292,6 @@ public class DataBase {
         readCars.run();
         Runnable readUsers = new ReadUsers();
         readUsers.run();
-    }
-
-    public static void listOfUsers() {
-        System.out.println(users.size());
-        for (int i = 0; i < users.size(); i++) {
-            System.out.println(users.get(i));
-        }
     }
 
     public static void exportInformation() {

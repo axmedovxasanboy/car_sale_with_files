@@ -38,7 +38,6 @@ public class Main {
                         >>\s""");
             }
             String choice = scannerStr.nextLine();
-            if(choice.equals("3")) DataBase.listOfUsers();
             if (DataBase.session == null) {
                 switch (choice) {
                     case "0" -> {
@@ -163,7 +162,7 @@ public class Main {
     }
 
     private static void myCarList() {
-        System.out.println("Note: In order to edit car info you should delete that car first then add another car with correct db.information!!!");
+        System.out.println("Note: In order to edit car info you should delete that car first then add another car with correct information!!!");
         CarResource resource = new CarResource();
         ApiResponse cars = resource.get(DataBase.session.getId());
         boolean carList = showCars(cars);

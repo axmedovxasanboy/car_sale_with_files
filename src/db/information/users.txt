@@ -1,4 +1,0 @@
-[id=0, username='admin', password='admin', balance=1000]
-[id=1, username='admin1', password='admin1', balance=300]
-[id=2, username='user1', password='user1', balance=1100]
-[id=3, username='admin2', password='admin2', balance=500]
