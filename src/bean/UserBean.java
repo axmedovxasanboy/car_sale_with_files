@@ -1,6 +1,8 @@
 package bean;
 
-public class UserBean extends BaseBean {
+import java.io.Serializable;
+
+public class UserBean extends BaseBean implements Serializable {
     protected Integer id;
     protected String username;
     protected String password;

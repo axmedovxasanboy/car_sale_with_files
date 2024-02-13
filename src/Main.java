@@ -15,7 +15,6 @@ public class Main {
     public static void main(String[] args) {
         DataBase.importInformation();
 
-
         System.out.println("Welcome to the online market.");
         while (true) {
             if (DataBase.session == null) {
@@ -204,8 +203,7 @@ public class Main {
             if (answer.equals("n")) return;
             ApiResponse response = resource.buyCar(id, DataBase.session);
             System.out.println(response.getMessage());
-        } else
-            System.out.println("Car market is empty\n");
+        } else System.out.println("Car market is empty\n");
     }
 
     private static void deleteCar() {

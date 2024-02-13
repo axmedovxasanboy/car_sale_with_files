@@ -3,12 +3,8 @@ package db;
 import bean.CarBean;
 import bean.UserBean;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class DataBase {
     protected static List<UserBean> users = new ArrayList<>();
@@ -16,108 +12,16 @@ public class DataBase {
     public static UserBean session = null;
     public static List<CarBean> previousPrices = new ArrayList<>();
 
-//    public static Runnable readCars = () -> {
-//        String path = "D:\\PDP\\Java\\JavaBackend (O'tkirbek aka)\\OnlineCarMarketWithFiles\\src\\db\\information\\cars.txt";
-//        Scanner reader = null;
-//        try {
-//            reader = new Scanner(new File(path));
-//        } catch (FileNotFoundException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        if (reader != null) {
-//            reader.useDelimiter("\n");
-//        }
-//        int id, userId, price;
-//        String name, color;
-//
-//        if (reader != null) {
-//            while (reader.hasNext()) {
-//                String userInfo = reader.next();
-//                String[] info = userInfo.replaceAll(" \\|\\|", ",").split(", ");
-//
-//                for (String element : info) {
-//                    CarBean car = new CarBean();
-//                    if (element.startsWith("[id=")) {
-//                        id = Integer.parseInt(element.substring(4));
-//                        car.setId(id);
-//                    }
-//                    if (element.startsWith("car-owner-id=")) {
-//                        userId = Integer.parseInt(element.substring(13));
-//                        car.setUserId(userId);
-//                    }
-//                    if (element.startsWith("name='")) {
-//                        name = element.substring(6, element.length() - 1);
-//                        car.setName(name);
-//                    }
-//                    if (element.startsWith("color='")) {
-//                        color = element.substring(7, element.length() - 1);
-//                        car.setColor(color);
-//                    }
-//                    if (element.startsWith("price=")) {
-//                        price = Integer.parseInt(element.substring(6));
-//                        car.setPrice(price);
-//                    }
-//                    if (element.startsWith("not")) {
-//                        car.setInStore(false);
-//                    } else if (element.startsWith("is")) {
-//                        car.setInStore(true);
-//                    }
-//                    cars.add(car);
-//                }
-//            }
-//        }
-//        if (reader != null) {
-//            reader.close();
-//        }
-//
-//    };
-
     public static UserBean addUser(UserBean user) {
         for (UserBean userBean : users) {
             if (userBean.getUsername().equals(user.getUsername())) return null;
         }
         user.setId(users.size());
         users.add(user);
-//        writeUserInfo();
         return user;
     }
 
     private static void writeUserInfo() {
-//        StringBuilder userInfo = new StringBuilder();
-//        for (UserBean user : users) {
-//            userInfo.append(user).append("\n");
-//        }
-//        try (PrintWriter text = new PrintWriter("D:\\PDP\\Java\\JavaBackend (O'tkirbek aka)\\OnlineCarMarketWithFiles\\src\\db\\information.txt")) {
-//            text.print(userInfo);
-//
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-
-
-//        StringBuilder userInfo = new StringBuilder();
-//        for (UserBean user : users) {
-//            userInfo.append(user).append("\n");
-//        }
-//        String info = userInfo.toString();
-//        FileOutputStream text = null;
-//        try {
-//            text = new FileOutputStream("D:\\PDP\\Java\\JavaBackend (O'tkirbek aka)\\OnlineCarMarketWithFiles\\src\\db\\information.txt");
-//            byte[] bytes = info.getBytes();
-//            text.write(bytes);
-//
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }finally {
-//            try {
-//                if (text != null) {
-//                    text.close();
-//                }
-//            } catch (IOException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-
         Runnable run = new SaveUserFiles();
         run.run();
 
@@ -288,49 +192,15 @@ public class DataBase {
     }
 
     public static void importInformation() {
-        Runnable readCars = new ReadCars();
-        readCars.run();
         Runnable readUsers = new ReadUsers();
         readUsers.run();
+        Runnable readCars = new ReadCars();
+        readCars.run();
     }
 
     public static void exportInformation() {
-        exportUserInfo();
-        exportCarInfo();
+        writeCarInfo();
+        writeUserInfo();
     }
 
-    private static void exportCarInfo() {
-        StringBuilder carInfo = new StringBuilder();
-        for (CarBean car : cars) {
-            carInfo.append(car).append("\n");
-        }
-        String path = "D:\\PDP\\Java\\JavaBackend (O'tkirbek aka)\\OnlineCarMarketWithFiles\\src\\db\\information\\cars.txt";
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(path);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        PrintWriter text = new PrintWriter(Objects.requireNonNull(fw));
-        text.print(carInfo);
-        text.close();
-    }
-
-    private static void exportUserInfo() {
-        StringBuilder userInfo = new StringBuilder();
-        for (UserBean user : users) {
-            userInfo.append(user).append("\n");
-        }
-        String path = "D:\\PDP\\Java\\JavaBackend (O'tkirbek aka)\\OnlineCarMarketWithFiles\\src\\db\\information\\users.txt";
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(path);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        PrintWriter text = new PrintWriter(Objects.requireNonNull(fw));
-        text.print(userInfo);
-        text.close();
-
-    }
 }

@@ -1,6 +1,8 @@
 package bean;
 
-public class CarBean extends BaseBean {
+import java.io.Serializable;
+
+public class CarBean extends BaseBean implements Serializable {
     protected Integer id;
 
     protected String name;
