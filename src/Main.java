@@ -69,10 +69,11 @@ public class Main {
     private static void register() {
         UserResource resource = new UserResource();
 
+        System.out.println("-1. Back to menu (for any inserting)");
         System.out.print("Enter your username: ");
         String username = scannerStr.nextLine();
-        System.out.print("Enter your password: ");
-        String password = scannerStr.nextLine();
+        String password = passwordChecker();
+        if (password.equals("-1")) return;
 
         UserBean user = new UserBean(username, password);
 
@@ -86,11 +87,23 @@ public class Main {
 
     }
 
+    private static String passwordChecker() {
+        String password;
+        do {
+            System.out.print("Enter your password\nPassword must contain at least \n- 1 Upper letter\n- 1 Lower letter\n- 1 digit\n- 8 characters\n>>> ");
+            password = scannerStr.nextLine();
+            if (password.equals("-1")) return password;
+        } while (!password.matches(DataBase.passwordRegex));
+        return password;
+    }
+
     private static void login() {
+        System.out.println("-1. Back to menu (for any inserting)");
         System.out.print("Enter your username: ");
         String username = scannerStr.nextLine();
-        System.out.print("Enter your password: ");
-        String password = scannerStr.nextLine();
+        if (username.equals("-1")) return;
+        String password = passwordChecker();
+        if (password.equals("-1")) return;
 
         UserResource resource = new UserResource();
         UserBean bean = new UserBean(username, password);
@@ -102,7 +115,7 @@ public class Main {
     }
 
     private static void addCar() {
-        System.out.println("-1. Back to menu");
+        System.out.println("-1. Back to menu (for any inserting)");
         System.out.print("Enter car name: ");
         String carName = scannerStr.nextLine();
         if (carName.equals("-1")) return;
@@ -151,7 +164,7 @@ public class Main {
         ApiResponse cars = resource.getCarsInStore(DataBase.session.getId());
         boolean carListEmpty = showCars(cars);
         if (!carListEmpty) {
-            System.out.println("-1. Back to menu");
+            System.out.println("-1. Back to menu (for any inserting)");
             System.out.print("Insert car ID: ");
             int id = scannerNum.nextInt();
             if (id == -1) return;
@@ -166,6 +179,7 @@ public class Main {
         ApiResponse cars = resource.get(DataBase.session.getId());
         boolean carList = showCars(cars);
         if (carList) return;
+        System.out.println("-1. Back to menu (for any inserting)");
         System.out.print("1. Take cars from store.\nOr Press Enter to continue\n>>> ");
         String choice = scannerStr.nextLine();
         if (choice.equals("1")) takeCarsFromStore();
@@ -176,7 +190,7 @@ public class Main {
         ApiResponse cars = resource.getCarsNotInStore(DataBase.session.getId());
         boolean carListEmpty = showCars(cars);
         if (!carListEmpty) {
-            System.out.println("-1. Back to menu");
+            System.out.println("-1. Back to menu (for any inserting)");
             System.out.print("Insert car ID: ");
             int id = scannerNum.nextInt();
             if (id == -1) return;
@@ -192,7 +206,7 @@ public class Main {
         boolean isMarketEmpty = DataBase.marketCars(DataBase.session.getId());
 
         if (!isMarketEmpty) {
-            System.out.println("-1. Back to menu.");
+            System.out.println("-1. Back to menu (for any inserting)");
             System.out.print("Insert car ID: ");
             int id = scannerNum.nextInt();
             if (id == -1) return;
@@ -211,7 +225,7 @@ public class Main {
         ApiResponse cars = resource.getCarsNotInStore(DataBase.session.getId());
         boolean carListEmpty = showCars(cars);
         if (!carListEmpty) {
-            System.out.println("-1. Back to menu");
+            System.out.println("-1. Back to menu (for any inserting)");
             System.out.print("Insert car ID: ");
             int id = scannerNum.nextInt();
             if (id == -1) return;
@@ -232,7 +246,7 @@ public class Main {
     }
 
     private static void editInfo() {
-        System.out.println("-1. Back to menu");
+        System.out.println("-1. Back to menu (for any inserting)");
         System.out.print("Insert new username (press Enter to stay the same): ");
         String newUsername = scannerStr.nextLine();
         if (newUsername.equals("-1")) return;

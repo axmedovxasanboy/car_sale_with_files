@@ -11,6 +11,7 @@ public class DataBase {
     protected static List<CarBean> cars = new ArrayList<>();
     public static UserBean session = null;
     public static List<CarBean> previousPrices = new ArrayList<>();
+    public static final String passwordRegex = "^(?=\\p{Upper})(?=\\D*\\p{Digit}).{8,}$";
 
     public static UserBean addUser(UserBean user) {
         for (UserBean userBean : users) {
